@@ -1,0 +1,107 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="UkrainianCurrency.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:viewModel="clr-namespace:UkrainianCurrency.ViewModels"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        
+        <DataTemplate x:Name="lpkItemTemplate">
+            <TextBlock Text="{Binding Bank}" FontSize="40"/>
+        </DataTemplate>
+        <!--<DataTemplate x:Name="lpkFullItemTemplate">
+            <TextBlock Text="{Binding Bank}" FontSize="40" />
+        </DataTemplate>-->
+
+        <DataTemplate x:Name="lpkFullItemTemplate">
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="{Binding Bank}" Margin="16 0 0 0" FontSize="43" FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+            </StackPanel>
+        </DataTemplate>
+
+    </phone:PhoneApplicationPage.Resources>
+    
+    <ScrollViewer >
+        <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TitlePanel" Grid.Row="1" Margin="12,0,12,0">
+            <TextBlock x:Name="SettingsTitle" Text="{Binding Path=Labels.SettingsScr_Title, Source={StaticResource Strings}}" 
+                       Margin="6,0,3,670" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </Grid>
+
+       
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            
+           
+            <!-- City selection -->
+            <TextBlock x:Name="CityLabel" Margin="6,108,-5,613" 
+                       Text="{Binding Path=Labels.SettingsScr_CityLabel, Source={StaticResource Strings}}" TextAlignment="Left"
+                           FontSize="25"/>
+
+                <toolkit:ListPicker x:Name="CitySelector" Margin="0,161,6,495" FullModeHeader="{Binding Path=Labels.SelectCity, Source={StaticResource Strings}}"
+                                ItemsSource="{Binding CityList}" SelectedIndex="{Binding City, Mode=TwoWay}">
+                    <toolkit:ListPicker.FullModeItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding BindsDirectlyToSource=True}" FontSize="40" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </toolkit:ListPicker.FullModeItemTemplate>
+                </toolkit:ListPicker>
+
+            <!-- Bank selection -->
+            <TextBlock x:Name="BankLabel" Margin="6,269,-5,452" 
+                    Text="{Binding Path=Labels.SettingsScr_BankLabel, Source={StaticResource Strings}}" TextAlignment="Left"
+                        FontSize="25"/>
+
+                <toolkit:ListPicker x:Name="BankSelector" Margin="0,311,6,345" 
+                            FullModeHeader="{Binding Path=Labels.SelectBank, Source={StaticResource Strings}}"
+                            ItemsSource="{Binding BankList}" SelectedIndex="{Binding Bank, Mode=TwoWay}" >
+
+                    <toolkit:ListPicker.FullModeItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding BindsDirectlyToSource=True}" FontSize="40" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </toolkit:ListPicker.FullModeItemTemplate>
+                </toolkit:ListPicker>
+
+
+            </Grid>
+        
+    </Grid>
+
+    </ScrollViewer>
+
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>
