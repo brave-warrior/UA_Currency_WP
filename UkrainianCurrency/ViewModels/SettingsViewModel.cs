@@ -11,17 +11,45 @@ using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Command;
 using UkrainianCurrency.Models;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace UkrainianCurrency.ViewModels
 {
+    /// <summary>
+    /// Viewmodel for the page Settings
+    /// </summary>
     public class SettingsViewModel : BaseViewModel
     {
+        private const int DEFAULT_CITY_INDEX = 0;
+        private const int DEFAULT_BANK_INDEX = 0;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public SettingsViewModel()
+        {
+            // values
+            Bank = Settings.GetBank(DEFAULT_BANK_INDEX);
+            City = Settings.GetCity(DEFAULT_CITY_INDEX);
+
+            // prepare list of cities
+            foreach (String str in Tables.CITY_NAMES)
+            {
+                CityList.Add(str);
+            }
+
+            // prepare list of banks
+            foreach (String str in Tables.BANK_NAMES)
+            {
+                BankList.Add(str);
+            }
+        }
 
         /// <summary>
         /// Provides list of cities
         /// </summary>
-        private ObservableCollection<String> iCityList = new ObservableCollection<string>();
-        public ObservableCollection<String> CityList
+        private IList<String> iCityList = new List<string>();
+        public IList<String> CityList
         {
             get { return iCityList; }
             set
@@ -34,8 +62,8 @@ namespace UkrainianCurrency.ViewModels
         /// <summary>
         /// Provides list of banks
         /// </summary>
-        private ObservableCollection<String> iBankList = new ObservableCollection<string>();
-        public ObservableCollection<String> BankList
+        private IList<String> iBankList = new List<string>();
+        public IList<String> BankList
         {
             get { return iBankList; }
             set
@@ -43,28 +71,6 @@ namespace UkrainianCurrency.ViewModels
                 iBankList = value;
                 RaisePropertyChanged("BankList");
             }
-        }
-
-
-        const int DEFAULT_VALUE = 0;
-
-        public SettingsViewModel()
-        {
-            // values
-            Bank = Settings.GetBank(DEFAULT_VALUE);
-            City = Settings.GetCity(DEFAULT_VALUE);
-
-            foreach (String str in Tables.CITY_NAMES)
-            {
-                CityList.Add(str);
-            }
-
-            foreach (String str in Tables.BANK_NAMES)
-            {
-                BankList.Add(str);
-            }
-
-            SettingsChanged = false;
         }
 
         /// <summary>
@@ -86,8 +92,6 @@ namespace UkrainianCurrency.ViewModels
 
                     // store settings
                     Settings.SaveBank(iBank);
-
-                    SettingsChanged = true;
                 }
 
             }
@@ -112,14 +116,10 @@ namespace UkrainianCurrency.ViewModels
 
                     // store settings
                     Settings.SaveCity(iCity);
-
-                    SettingsChanged = true;
                 }
                 
             }
         }
 
-        private bool iSettingsChanged;
-        public bool SettingsChanged { get; set; }
     }
 }

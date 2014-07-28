@@ -17,13 +17,19 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded">
+    shell:SystemTray.IsVisible="True"
+    Style="{StaticResource TransitionPageStyle}">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding PageLoaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <phone:PhoneApplicationPage.Resources>
-
         <converter:VisibilityConverter x:Key="visibilityConverter" />
     </phone:PhoneApplicationPage.Resources>
-    
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent"  >
         <Grid.RowDefinitions>
@@ -44,11 +50,11 @@
             <ProgressBar x:Name="ProgressBar" IsIndeterminate="True"
                          Visibility="{Binding IsInProgress, Converter={StaticResource visibilityConverter}}"
                          Style="{StaticResource PerformanceProgressBar}" />
-            
+
             <TextBlock x:Name="EmplyList" Text="{Binding EmptyListText}" FontSize="35" TextWrapping="Wrap" TextAlignment="Center" 
                        HorizontalAlignment="Center" VerticalAlignment="Stretch" Height="499" 
                        Margin="0,29,0,7" Visibility="{Binding IsNoData, Converter={StaticResource visibilityConverter}}" />
-            
+
             <StackPanel>
                 <Grid VerticalAlignment="Top" Grid.Row="0">
                     <TextBlock x:Name="UpdatedTime" HorizontalAlignment="Left" 
@@ -56,80 +62,81 @@
                     <TextBlock x:Name="Currency" HorizontalAlignment="Right" 
                                Text="{Binding Path=Labels.Currency, Source={StaticResource Strings}}"/>
                 </Grid>
-            
-            <ListBox Height="499"  Name="CurrencyListbox" HorizontalAlignment="Stretch"
+
+                <ListBox Height="499"  Name="CurrencyListbox" HorizontalAlignment="Stretch"
                      ItemsSource="{Binding CurrencyItems}" VerticalAlignment="Top"  
                      Margin="6,2,0,0" Grid.ColumnSpan="2" 
                      IsHitTestVisible="True" Grid.Row="1" >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
 
-                        <Grid Background="Transparent" Margin="0,0,0,30" HorizontalAlignment="Stretch" >
+                            <Grid Background="Transparent" Margin="0,0,0,30" HorizontalAlignment="Stretch" >
 
-                            <Grid Grid.Column="0">
+                                <Grid Grid.Column="0">
 
-                                <Grid HorizontalAlignment="Left">
-                                    <StackPanel x:Name="Currency" Tag="{Binding Name}" Orientation="Vertical" HorizontalAlignment="Stretch">
-                                        <TextBlock x:Name="CurrName" Text="{Binding CurrencyName}"  TextWrapping="NoWrap" FontSize="35" TextAlignment="Center" />
-                                        <Image x:Name="statusImage" Height="100" Width="100" HorizontalAlignment="Center" 
+                                    <Grid HorizontalAlignment="Left">
+                                        <StackPanel x:Name="Currency" Tag="{Binding Name}" Orientation="Vertical" HorizontalAlignment="Stretch">
+                                            <TextBlock x:Name="CurrName" Text="{Binding CurrencyName}"  TextWrapping="NoWrap" FontSize="35" TextAlignment="Center" />
+                                            <Image x:Name="statusImage" Height="100" Width="100" HorizontalAlignment="Center" 
                                              Source="{Binding CurrImg}" />
-                                    </StackPanel>
-                                </Grid>
+                                        </StackPanel>
+                                    </Grid>
 
-                                <Grid HorizontalAlignment="Center">
-                                    <StackPanel x:Name="Sell" Tag="{Binding Name}" Orientation="Vertical" HorizontalAlignment="Stretch">
-                                        <TextBlock x:Name="SellLabel" Text="{Binding Path=Labels.SellLabel, Source={StaticResource Strings}}"  
+                                    <Grid HorizontalAlignment="Center">
+                                        <StackPanel x:Name="Sell" Tag="{Binding Name}" Orientation="Vertical" HorizontalAlignment="Stretch">
+                                            <TextBlock x:Name="SellLabel" Text="{Binding Path=Labels.SellLabel, Source={StaticResource Strings}}"  
                                                    TextWrapping="NoWrap" FontSize="35" TextAlignment="Center"/>
-                                        <TextBlock x:Name="SellCourse" Text="{Binding SellCourse}"  TextWrapping="NoWrap" FontSize="35" TextAlignment="Center"/>
-                                        <TextBlock x:Name="SellDelta" MaxHeight="40" Text="{Binding SellDelta}"  FontSize="25" 
+                                            <TextBlock x:Name="SellCourse" Text="{Binding SellCourse}"  TextWrapping="NoWrap" FontSize="35" TextAlignment="Center"/>
+                                            <TextBlock x:Name="SellDelta" MaxHeight="40" Text="{Binding SellDelta}"  FontSize="25" 
                                                    TextWrapping="NoWrap" TextAlignment="Center" Foreground="{Binding SellDeltaColor}"/>
-                                    </StackPanel>
-                                </Grid>
+                                        </StackPanel>
+                                    </Grid>
 
-                                <Grid HorizontalAlignment="Right" Margin="0,0,10,0">
-                                    <StackPanel x:Name="Buy" Tag="{Binding Name}"  Orientation="Vertical" HorizontalAlignment="Stretch">
-                                        <TextBlock x:Name="BuyLable" Text="{Binding Path=Labels.BuyLabel, Source={StaticResource Strings}}"  
+                                    <Grid HorizontalAlignment="Right" Margin="0,0,10,0">
+                                        <StackPanel x:Name="Buy" Tag="{Binding Name}"  Orientation="Vertical" HorizontalAlignment="Stretch">
+                                            <TextBlock x:Name="BuyLable" Text="{Binding Path=Labels.BuyLabel, Source={StaticResource Strings}}"  
                                                    TextWrapping="NoWrap" FontSize="35" TextAlignment="Center" />
-                                        <TextBlock x:Name="BuyCourse" Text="{Binding BuyCourse}"  TextWrapping="NoWrap" FontSize="35" TextAlignment="Center" />
-                                        <TextBlock x:Name="BuyDelta" MaxHeight="40" Text="{Binding BuyDelta}"  FontSize="25" 
+                                            <TextBlock x:Name="BuyCourse" Text="{Binding BuyCourse}"  TextWrapping="NoWrap" FontSize="35" TextAlignment="Center" />
+                                            <TextBlock x:Name="BuyDelta" MaxHeight="40" Text="{Binding BuyDelta}"  FontSize="25" 
                                                    TextWrapping="NoWrap" TextAlignment="Center" Foreground="{Binding BuyDeltaColor}"/>
-                                    </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+
                                 </Grid>
 
                             </Grid>
 
-                        </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
 
-                    </DataTemplate>              
-                </ListBox.ItemTemplate>
-                
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <ContentPresenter IsHitTestVisible="{Binding IsEnabled}" 
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter IsHitTestVisible="{Binding IsEnabled}" 
                                                       HorizontalAlignment="Stretch"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
 
-            </ListBox>
+                </ListBox>
             </StackPanel>
 
         </Grid>
     </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
+
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
 
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" >
             <shell:ApplicationBarIconButton x:Name="update" IconUri="/Images/appbar/app_bar_update.png" Text="update" />
             <shell:ApplicationBarIconButton x:Name="settings" IconUri="/Images/appbar/app_bar_settings.png" Text="settings" />
-            <shell:ApplicationBarIconButton x:Name="about" IconUri="/Images/appbar/app_bar_about.png" Text="about" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="about" Text="about"/>
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
@@ -139,9 +146,9 @@
             Id="update" Command="{Binding UpdateCommand}" Text="{Binding Path=Labels.AppbarUpdate, Source={StaticResource Strings}}"/>
         <AppBarUtils:AppBarItemCommand
             Id="settings" Command="{Binding SettingsCommand}" Text="{Binding Path=Labels.AppbarSettings, Source={StaticResource Strings}}"/>
-        <AppBarUtils:AppBarItemCommand
+        <AppBarUtils:AppBarItemCommand Type="MenuItem"
             Id="about" Command="{Binding AboutCommand}" Text="{Binding Path=Labels.AppbarAbout, Source={StaticResource Strings}}"/>
+
     </i:Interaction.Behaviors>
 
-    
 </phone:PhoneApplicationPage>

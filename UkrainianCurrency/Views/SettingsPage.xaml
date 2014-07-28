@@ -13,16 +13,14 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    Style="{StaticResource TransitionPageStyle}">
 
     <phone:PhoneApplicationPage.Resources>
-        
+
         <DataTemplate x:Name="lpkItemTemplate">
             <TextBlock Text="{Binding Bank}" FontSize="40"/>
         </DataTemplate>
-        <!--<DataTemplate x:Name="lpkFullItemTemplate">
-            <TextBlock Text="{Binding Bank}" FontSize="40" />
-        </DataTemplate>-->
 
         <DataTemplate x:Name="lpkFullItemTemplate">
             <StackPanel Orientation="Horizontal" >
@@ -31,27 +29,27 @@
         </DataTemplate>
 
     </phone:PhoneApplicationPage.Resources>
-    
+
     <ScrollViewer >
         <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid x:Name="LayoutRoot" Background="Transparent" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid x:Name="TitlePanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock x:Name="SettingsTitle" Text="{Binding Path=Labels.SettingsScr_Title, Source={StaticResource Strings}}" 
+            <Grid x:Name="TitlePanel" Grid.Row="1" Margin="12,0,12,0">
+                <TextBlock x:Name="SettingsTitle" Text="{Binding Path=Labels.SettingsScr_Title, Source={StaticResource Strings}}" 
                        Margin="6,0,3,670" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </Grid>
+            </Grid>
 
-       
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            
-           
-            <!-- City selection -->
-            <TextBlock x:Name="CityLabel" Margin="6,108,-5,613" 
+
+            <!--ContentPanel - place additional content here-->
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+
+
+                <!-- City selection -->
+                <TextBlock x:Name="CityLabel" Margin="6,108,-5,613" 
                        Text="{Binding Path=Labels.SettingsScr_CityLabel, Source={StaticResource Strings}}" TextAlignment="Left"
                            FontSize="25"/>
 
@@ -66,8 +64,8 @@
                     </toolkit:ListPicker.FullModeItemTemplate>
                 </toolkit:ListPicker>
 
-            <!-- Bank selection -->
-            <TextBlock x:Name="BankLabel" Margin="6,269,-5,452" 
+                <!-- Bank selection -->
+                <TextBlock x:Name="BankLabel" Margin="6,269,-5,452" 
                     Text="{Binding Path=Labels.SettingsScr_BankLabel, Source={StaticResource Strings}}" TextAlignment="Left"
                         FontSize="25"/>
 
@@ -84,24 +82,10 @@
                     </toolkit:ListPicker.FullModeItemTemplate>
                 </toolkit:ListPicker>
 
-
             </Grid>
-        
-    </Grid>
+
+        </Grid>
 
     </ScrollViewer>
-
-
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

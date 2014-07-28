@@ -15,6 +15,9 @@ using System.Collections.Generic;
 
 namespace UkrainianCurrency.Models
 {
+    /// <summary>
+    /// Provides operations with the Database
+    /// </summary>
     public class DbEngine : DataContext
     {
         // Specify the connection string as a static, used in main page and app.xaml.
@@ -27,14 +30,17 @@ namespace UkrainianCurrency.Models
             
         }
 
+        /// <summary>
+        /// Gets the data according to the Download
+        /// </summary>
         public Table<DownloadData> DownloadData
         {
-            get
-            {
-                return this.GetTable<DownloadData>();
-            }
+            get { return this.GetTable<DownloadData>(); }
         }
 
+        /// <summary>
+        /// Gets the data about Currency
+        /// </summary>
         public Table<Currency> CurrencyList
         {
             get

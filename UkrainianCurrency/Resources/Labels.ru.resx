@@ -130,7 +130,7 @@
     <value>UA Валюта</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Автор: Дмитрий Хмеленко</value>
+    <value>© Khmelenko Lab</value>
   </data>
   <data name="Bank_Active" xml:space="preserve">
     <value>Актив банк</value>
@@ -286,7 +286,7 @@
     <value>Запорожье</value>
   </data>
   <data name="Contacts" xml:space="preserve">
-    <value>khmelenko_dmitriy@ukr.net</value>
+    <value>d.khmelenko@gmail.com</value>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>Валюта: UAH</value>
@@ -325,6 +325,6 @@
     <value>Обновлено: </value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Версия: 1.01.002</value>
+    <value>Версия: 1.01.003</value>
   </data>
 </root>

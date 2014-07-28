@@ -22,22 +22,32 @@ using System.Globalization;
 
 namespace UkrainianCurrency.ViewModels
 {
+    /// <summary>
+    /// Viewmodel for the Main page
+    /// </summary>
     public class MainPageViewModel : BaseViewModel
     {
         private const string URL_REQUEST = @"http://cashexchange.com.ua/XmlApi.ashx";
 
+        // handlers
         public RelayCommand UpdateCommand { get; private set; }
         public RelayCommand SettingsCommand { get; private set; }
         public RelayCommand AboutCommand { get; private set; }
+        public RelayCommand PageLoaded { get; private set; }
 
+        // database
         private DbEngine iDbEngine;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainPageViewModel()
         {
             // handlers
             UpdateCommand = new RelayCommand(MakeUpdate);
             SettingsCommand = new RelayCommand(GoToSettings);
             AboutCommand = new RelayCommand(GoToAbout);
+            PageLoaded = new RelayCommand(HandlePageLoaded);
 
             iDbEngine = new DbEngine(DbEngine.DBConnectionString);
             if (!iDbEngine.DatabaseExists())
@@ -53,6 +63,15 @@ namespace UkrainianCurrency.ViewModels
             {
                 MakeUpdate();
             }
+        }
+
+        /// <summary>
+        /// Handles event PageLoaded
+        /// </summary>
+        private void HandlePageLoaded()
+        {
+            // check whether application settings are changed or not
+            CheckSettings();
         }
 
         /// <summary>
@@ -76,8 +95,8 @@ namespace UkrainianCurrency.ViewModels
         /// Shows/hides listbox empty control
         /// </summary>
         private bool iIsNoData;
-        public bool IsNoData 
-        { 
+        public bool IsNoData
+        {
             get
             {
                 return iIsNoData;
@@ -272,6 +291,9 @@ namespace UkrainianCurrency.ViewModels
             return baseRequest;
         }
 
+        /// <summary>
+        /// Makes data update
+        /// </summary>
         private void MakeUpdate()
         {
             // Check network connection
@@ -330,7 +352,7 @@ namespace UkrainianCurrency.ViewModels
                 iDbEngine.DeleteAllDownloadData();
 
                 // parsing results
-                XDocument results = XDocument.Parse(e.Result);             
+                XDocument results = XDocument.Parse(e.Result);
                 XElement elements = results.Element("Results");
                 var items = from item in elements.Elements("Element") select item;
                 foreach (XElement item in items)
@@ -377,11 +399,6 @@ namespace UkrainianCurrency.ViewModels
         /// </summary>
         private void GoToAbout()
         {
-            //iDbEngine.DeleteAllCurrency();
-            //iDbEngine.DeleteAllDownloadData();
-            //UpdateCurrencyList();
-            //UpdateDownloadTime();
-
             INavigationService navigationService = this.GetService<INavigationService>();
             navigationService.Navigate("/Views/AboutPage.xaml");
         }
@@ -420,12 +437,12 @@ namespace UkrainianCurrency.ViewModels
                     {
                         EmptyListText = Labels.NoNetwork;
                     }
-                    
+
                 }
             }
 
-            
+
         }
-        
+
     }
 }

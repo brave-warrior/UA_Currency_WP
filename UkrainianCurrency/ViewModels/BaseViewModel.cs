@@ -13,6 +13,9 @@ using UkrainianCurrency.Navigation;
 
 namespace UkrainianCurrency.ViewModels
 {
+    /// <summary>
+    /// Base class for all ViewModels
+    /// </summary>
     public class BaseViewModel : ViewModelBase
     {
         public T GetService<T>() where T : class

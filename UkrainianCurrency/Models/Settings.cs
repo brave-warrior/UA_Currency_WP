@@ -12,11 +12,14 @@ using System.IO.IsolatedStorage;
 
 namespace UkrainianCurrency.Models
 {
+    /// <summary>
+    /// Provides an access to the application settings
+    /// </summary>
     public class Settings
     {
         // The isolated storage key names of our settings
-        const string CITY_KEY = "City";
-        const string BANK_KEY = "Country";
+        private const string CITY_KEY = "City";
+        private const string BANK_KEY = "Country";
 
         /// <summary>
         /// Update a setting value for our application. If the setting does not
@@ -55,9 +58,9 @@ namespace UkrainianCurrency.Models
         /// setting to the default setting.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="aKey"></param>
-        /// <param name="aDefaultValue"></param>
-        /// <returns></returns>
+        /// <param name="aKey">Key for retrieving data</param>
+        /// <param name="aDefaultValue">Default value</param>
+        /// <returns>Found or default value</returns>
         public static T GetValueOrDefault<T>(string aKey, T aDefaultValue)
         {
             IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
